@@ -1,5 +1,5 @@
+from services.models import Services
 from django.db import models
-from servicos.models import Servico
 
 
 class Agendamento(models.Model):
@@ -12,7 +12,7 @@ class Agendamento(models.Model):
     nome_cliente = models.CharField(max_length=150)
     email_cliente = models.EmailField()
     telefone_cliente = models.CharField(max_length=20)
-    servico = models.ForeignKey(Servico, on_delete=models.PROTECT, related_name='agendamentos') # noqa E501
+    services = models.ForeignKey(Services, on_delete=models.PROTECT, related_name='agendamentos') # noqa E501
     data = models.DateField()
     horario = models.TimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente') # noqa E501
@@ -20,7 +20,7 @@ class Agendamento(models.Model):
 
     class Meta:
         ordering = ['data', 'horario'] # sempre me retornar em ordem de data e hora  # noqa E501
-        unique_together = ('servico', 'data', 'horario') # Bloqueio fisico no banco, para não haver dois erviços mesmo horário e data # noqa E501
+        unique_together = ('services', 'data', 'horario') # Bloqueio fisico no banco, para não haver dois erviços mesmo horário e data # noqa E501
 
     def __str__(self):
         return f'{self.nome_cliente} - {self.servico.nome} ({self.data} {self.horario})'  # noqa E501
