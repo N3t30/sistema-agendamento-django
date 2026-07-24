@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Services(models.Model):
+class Servico(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
     duracao_minutos = models.PositiveIntegerField()
