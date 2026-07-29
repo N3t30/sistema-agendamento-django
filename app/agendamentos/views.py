@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Agendamento
+from .serializers import AgendamentoSerializer
 
-# Create your views here.
+
+class AgendamentoCreateView(generics.CreateAPIView):
+    queryset = Agendamento.objects.all()
+    serializer_class = AgendamentoSerializer 
