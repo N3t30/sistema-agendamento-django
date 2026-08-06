@@ -33,7 +33,7 @@ class AgendamentoCreateView(generics.CreateAPIView):
             subject='Novo Agendamento Recebido', 
             message=(
                 f'Novo agendamento de {agendamento.nome_cliente} para o serviço {agendamento.servico.nome}'  # noqa E501
-                f'No dia {agendamento.data} às {agendamento.horario}.'         
+                f' No dia {agendamento.data} às {agendamento.horario}.'         
             ),
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.DONO_NEGOCIO_EMAIL],
