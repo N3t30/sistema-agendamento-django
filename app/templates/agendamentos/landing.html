@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Agendix — Agende seu horário{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Agende seu horário</h2>
+    <p>Escolha o serviço, a data e o horário que preferir.</p>
+</section>
+
+<section class="servicos">
+    <h3>Serviços disponíveis</h3>
+    <div id="lista-servicos" class="servicos-grid">
+        <p class="carregando">Carregando serviços...</p>
+    </div>
+</section>
+
+<section class="formulario">
+    <h3>Fazer agendamento</h3>
+    <form id="form-agendamento">
+        <div class="campo">
+            <label for="nome_cliente">Nome</label>
+            <input type="text" id="nome_cliente" name="nome_cliente" required>
+        </div>
+        <div class="campo">
+            <label for="email_cliente">Email</label>
+            <input type="email" id="email_cliente" name="email_cliente" required>
+        </div>
+        <div class="campo">
+            <label for="telefone_cliente">Telefone</label>
+            <input type="text" id="telefone_cliente" name="telefone_cliente" required>
+        </div>
+        <div class="campo">
+            <label for="servico">Serviço</label>
+            <select id="servico" name="servico" required>
+                <option value="">Selecione um serviço</option>
+            </select>
+        </div>
+        <div class="campo">
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required>
+        </div>
+        <div class="campo">
+            <label for="horario">Horário</label>
+            <input type="time" id="horario" name="horario" required>
+        </div>
+        <button type="submit" class="botao-enviar">Confirmar agendamento</button>
+    </form>
+    <div id="mensagem" class="mensagem"></div>
+</section>
+{% endblock %}
