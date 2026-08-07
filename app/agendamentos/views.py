@@ -3,9 +3,16 @@ from .models import Agendamento
 from .serializers import AgendamentoSerializer
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import render
 
 
-class AgendamentoCreateView(generics.CreateAPIView):
+def landing_page(request):
+    return render(request, 'agendamentos/landing.html')
+
+
+
+class AgendamentoCreateView(generics.CreateAPIView):  # noqa E303
+
     queryset = Agendamento.objects.all()
     serializer_class = AgendamentoSerializer 
 
@@ -15,17 +22,20 @@ class AgendamentoCreateView(generics.CreateAPIView):
         self.enviar_email_notificacao_dono(agendamento)
 
     def enviar_email_confirmacao(self, agendamento):
+        data_formatada = agendamento.data.strftime('%d/%m/%Y')
+        horario_formatado = agendamento.horario.strftime('%H:%M')
+
         send_mail(
-            subject='Confirmação de Agendamento', 
+            subject='Confirmação de Agendamento',
             message=(
                 f'Olá {agendamento.nome_cliente},\n\n'
-                f'Seu agendamento para {agendamento.servico.nome} foi confirmado '# noqa E501
-                f'para o dia {agendamento.data} às {agendamento.horario}.\n\n'
+                f'Seu agendamento para {agendamento.servico.nome} foi confirmado ' # noqa E501
+                f'para o dia {data_formatada} às {horario_formatado}.\n\n'
                 f'Obrigado por agendar conosco!'
             ),
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[agendamento.email_cliente],
-            fail_silently=True # Apenas para controlar a falha no envio do e-mail   # noqa E501
+            fail_silently=True
         )
     
     def enviar_email_notificacao_dono(self, agendamento):
@@ -39,3 +49,4 @@ class AgendamentoCreateView(generics.CreateAPIView):
             recipient_list=[settings.DONO_NEGOCIO_EMAIL],
             fail_silently=True # Apenas para controlar a falha no envio do e-mail # noqa E501
         )
+
