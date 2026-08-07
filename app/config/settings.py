@@ -141,6 +141,3 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_FROM_EMAIL = 'Agendix <joseneto55peixoto@gmail.com>'
 DONO_NEGOCIO_EMAIL = 'joseneto55peixoto@gmail.com'
 
-
-
-
